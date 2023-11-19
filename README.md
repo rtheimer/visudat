@@ -1,0 +1,2 @@
+# visudat
+powerdog
