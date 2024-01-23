@@ -1,0 +1,32 @@
+# Combined .gitignore
+
+# Django
+backend/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/__pycache__/
+backend/*.sqlite3
+backend/*.log
+backend/*.env
+backend/*.pyc
+backend/*.pyo
+backend/*.pyd
+backend/*.db
+backend/*.sqlite
+backend/*.sqlite3-journal
+backend/db.sqlite3
+backend/db.sqlite3-journal
+backend/media/
+
+# React
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+frontend/.env*
+frontend/npm-debug.log
+frontend/yarn-error.log
+frontend/.idea/
+
+# Common
+.DS_Store
+Thumbs.db
