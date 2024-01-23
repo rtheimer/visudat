@@ -1,0 +1,4 @@
+Django==5.0
+djangorestframework==3.14.0
+email_validator==2.1.0.post1
+pandas==2.2.0
