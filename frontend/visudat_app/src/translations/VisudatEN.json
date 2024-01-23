@@ -1,0 +1,6 @@
+{
+  "header": { "title": "Adminpanel" },
+  "table_header": { "company": "Company" },
+
+  "navbar": { "dropdown": { "Settings": "Settings" } }
+}

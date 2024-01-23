@@ -1,0 +1,25 @@
+{
+  "header": { "title": "Adminpanel" },
+  "navbar": {
+    "logout_button": "",
+    "dropdown": {
+      "Settings": "Einstellungen",
+      "Language": "Sprache",
+      "German": "Deutsch",
+      "English": "Englisch",
+      "Darkmode": "Dunkelmodus"
+    }
+  },
+  "tabs": {
+    "owner": "Eigentümer"
+  },
+
+  "owner_form": {},
+  "plant_form": {},
+  "datalogger_form": {},
+  "databuses_form": {},
+  "user_form": {},
+  "form_buttons": {},
+  "table_labels": {},
+  "table_header": { "company": "Firma" }
+}
