@@ -164,13 +164,16 @@ const PlantForm = ({ setTableData, formData, setFormData }) => {
     e.preventDefault();
 
     axios
-      .get("http://192.168.1.107:8000/api/plants/", {
-        params: {
-          plant_name: data.plant_name,
-          plant_location: data.plant_location,
-          plant_owners: selectedPlantOwners.join(","),
-        },
-      })
+      .get(
+        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/plants/",
+        {
+          params: {
+            plant_name: data.plant_name,
+            plant_location: data.plant_location,
+            plant_owners: selectedPlantOwners.join(","),
+          },
+        }
+      )
       .then((response) => {
         console.log(response.status, response.data);
         setTableData(response.data);
