@@ -27,7 +27,7 @@ function App() {
   return (
     <Theme
       grayColor="sand"
-      accentColor="tomato"
+      accentColor="indigo"
       style={{ height: "100%" }}
       appearance={darkMode}
     >

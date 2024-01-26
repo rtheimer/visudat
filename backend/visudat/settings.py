@@ -139,13 +139,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#TODO: ???
-#CORS_ALLOW_HEADERS = '*' # <-------- this
-"""CSRF_TRUSTED_ORIGINS = [
-  'http://localhost:3000/',
-   'http://192.168.1.107:3000/',
-   'http://192.168.1.107',
-]"""
 
 CORS_ALLOW_METHODS = [
     'GET',
