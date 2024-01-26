@@ -32,3 +32,4 @@ frontend/.idea/
 Thumbs.db
 backend/db.sqlite3.bak
 backend/.python-version
+production/
