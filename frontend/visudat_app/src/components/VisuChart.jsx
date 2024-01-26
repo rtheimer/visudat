@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { apiBaseUrl, apiPort } from "./VisudatConfig";
 import {
   Chart as ChartJS,
   BarElement,
@@ -46,9 +47,17 @@ const VisuChart = (props) => {
         let month = selectedDate.getMonth() + 1;
         let year = selectedDate.getFullYear();
         url = month + "/" + year + "/" + period;
+        break;
     }
     axios
-      .get("http://192.168.1.107:8000/" + p[1] + "/" + url)
+      .get(
+        apiBaseUrl +
+          (apiPort !== 80 ? ":" + apiPort : "") +
+          "/api/" +
+          p[1] +
+          "/" +
+          url
+      )
       .then((response) => {
         const responseData = JSON.parse(response.data);
         setLabels(responseData.labels);

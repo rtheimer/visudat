@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@radix-ui/themes";
 import { AuthContext } from "./Context";
+import { apiBaseUrl, apiPort } from "./VisudatConfig";
 
 // This component represents a logout button used for user authentication.
 
@@ -26,7 +27,9 @@ const LogoutButton = () => {
 
     // Make API request to log out the user
     axios
-      .get("http://192.168.1.107:8000/api-logout/")
+      .get(
+        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/api-logout/"
+      )
       .then(() => {
         // Destroy the authentication token in local storage
         localStorage.removeItem("Token");
