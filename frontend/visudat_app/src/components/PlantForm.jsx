@@ -11,6 +11,7 @@ import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "./Context";
 import ErrorMessage from "./ErrorMessage";
+import { apiBaseUrl, apiPort } from "./VisudatConfig";
 
 // Both const App = () => and function App() are valid ways
 // to declare a functional component in React.
@@ -60,11 +61,14 @@ const PlantForm = ({ setTableData, formData, setFormData }) => {
   // fetching data on mount
   useEffect(() => {
     axios
-      .get("http://192.168.1.107:8000/owners/", {
-        params: {
-          name: "",
-        },
-      })
+      .get(
+        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/owners/",
+        {
+          params: {
+            name: "",
+          },
+        }
+      )
       .then((response) => {
         const owners = response.data.map((obj) => [
           obj.id,
@@ -108,11 +112,14 @@ const PlantForm = ({ setTableData, formData, setFormData }) => {
     console.log("Hi", data);
     e.preventDefault();
     axios
-      .post("http://192.168.1.107:8000/plants/", {
-        plant_name: data.plant_name,
-        plant_location: data.plant_location,
-        plant_owners: data.plant_owners,
-      })
+      .post(
+        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/plants/",
+        {
+          plant_name: data.plant_name,
+          plant_location: data.plant_location,
+          plant_owners: data.plant_owners,
+        }
+      )
       .then((response) => {
         console.log(response.data);
       })
@@ -120,7 +127,13 @@ const PlantForm = ({ setTableData, formData, setFormData }) => {
   };
   const handleDelete = (e) => {
     axios
-      .delete(`http://192.168.1.107:8000/${data.pk}/plants/`)
+      .delete(
+        apiBaseUrl +
+          (apiPort !== 80 ? ":" + apiPort : "") +
+          "/api/" +
+          data.pk +
+          "/plants/"
+      )
       .then((response) => {
         setFormData([""]);
         setTableData([]);
@@ -128,11 +141,18 @@ const PlantForm = ({ setTableData, formData, setFormData }) => {
   };
   const handlePut = (e) => {
     axios
-      .put(`http://192.168.1.107:8000/${data.pk}/plants/`, {
-        plant_name: data.plant_name,
-        plant_location: data.plant_location,
-        plant_owners: data.plant_owners,
-      })
+      .put(
+        apiBaseUrl +
+          (apiPort !== 80 ? ":" + apiPort : "") +
+          "/api/" +
+          data.pk +
+          "/plants/",
+        {
+          plant_name: data.plant_name,
+          plant_location: data.plant_location,
+          plant_owners: data.plant_owners,
+        }
+      )
       .then((response) => {
         setFormData([null, "", "", ""]);
         setTableData([response.data]);
@@ -144,7 +164,7 @@ const PlantForm = ({ setTableData, formData, setFormData }) => {
     e.preventDefault();
 
     axios
-      .get("http://192.168.1.107:8000/plants/", {
+      .get("http://192.168.1.107:8000/api/plants/", {
         params: {
           plant_name: data.plant_name,
           plant_location: data.plant_location,

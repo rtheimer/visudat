@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { ScrollArea, Flex, Box } from "@radix-ui/themes";
 import axios from "axios";
 import { AuthContext } from "./Context";
+import { apiBaseUrl, apiPort } from "./VisudatConfig";
 
 // This component represents a list of plants fetched from an API.
 
@@ -21,7 +22,7 @@ function MyList({ setContent }) {
   // Fetch the list of plants from the API
   useEffect(() => {
     axios
-      .get("http://192.168.1.107:8000/plants/")
+      .get(apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/plants/")
       .then(function (res) {
         console.log(res.data);
         // Transform the API response to a list of plants with selected properties

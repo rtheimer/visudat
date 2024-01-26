@@ -4,6 +4,7 @@ import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "./Context";
 import ErrorMessage from "./ErrorMessage";
+import { apiBaseUrl, apiPort } from "./VisudatConfig";
 
 // OwnerForm component represents a form for searching and saving owner information.
 const OwnerForm = ({ setTableData, formData, setFormData }) => {
@@ -56,14 +57,17 @@ const OwnerForm = ({ setTableData, formData, setFormData }) => {
 
     // Make an axios GET request to retrieve owner data based on the provided name
     axios
-      .get("http://192.168.1.107:8000/owners/", {
-        params: {
-          company_name: data.company,
-          name: data.name,
-          first_name: data.firstname,
-          email: data.email,
-        },
-      })
+      .get(
+        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/owners/",
+        {
+          params: {
+            company_name: data.company,
+            name: data.name,
+            first_name: data.firstname,
+            email: data.email,
+          },
+        }
+      )
       .then((response) => {
         // Update the table data with the retrieved owner information
         setTableData(response.data);
@@ -80,14 +84,17 @@ const OwnerForm = ({ setTableData, formData, setFormData }) => {
     e.preventDefault();
     console.log("HI", data);
     axios
-      .post("http://192.168.1.107:8000/owners/", {
-        company_name: data.company,
-        full_name: data.name,
-        first_name: data.firstname,
-        email: data.email,
-        phone: data.phone,
-        mobil: data.mobil,
-      })
+      .post(
+        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/owners/",
+        {
+          company_name: data.company,
+          full_name: data.name,
+          first_name: data.firstname,
+          email: data.email,
+          phone: data.phone,
+          mobil: data.mobil,
+        }
+      )
       .then((response) => {
         // Log the retrieved owner information
         console.log(response.data);
@@ -103,7 +110,13 @@ const OwnerForm = ({ setTableData, formData, setFormData }) => {
 
   const handleDelete = (e) => {
     axios
-      .delete(`http://192.168.1.107:8000/${data.pk}/owners/`)
+      .delete(
+        apiBaseUrl +
+          (apiPort !== 80 ? ":" + apiPort : "") +
+          "/api/" +
+          data.pk +
+          "/owners/"
+      )
       .then((reponse) => {
         setFormData([null, "", "", ""]);
         setTableData([]);
@@ -117,14 +130,21 @@ const OwnerForm = ({ setTableData, formData, setFormData }) => {
 
   const handlePut = (e) => {
     axios
-      .put(`http://192.168.1.107:8000/${data.pk}/owners/`, {
-        company_name: data.company,
-        full_name: data.name,
-        first_name: data.firstname,
-        email: data.email,
-        phone: data.phone,
-        mobil: data.mobil,
-      })
+      .put(
+        apiBaseUrl +
+          (apiPort !== 80 ? ":" + apiPort : "") +
+          "/api/" +
+          data.pk +
+          "/owners/",
+        {
+          company_name: data.company,
+          full_name: data.name,
+          first_name: data.firstname,
+          email: data.email,
+          phone: data.phone,
+          mobil: data.mobil,
+        }
+      )
       .then((response) => {
         setFormData([null, "", "", ""]);
         setTableData([response.data]);

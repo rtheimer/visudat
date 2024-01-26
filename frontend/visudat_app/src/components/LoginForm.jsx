@@ -12,6 +12,7 @@ import axios from "axios";
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./Context";
+import { apiBaseUrl, apiPort } from "./VisudatConfig";
 
 // This component represents the login form used for user authentication.
 
@@ -59,7 +60,12 @@ const LoginForm = () => {
 
     // Make API request to authenticate user
     axios
-      .post("http://192.168.1.107:8000/api-token-auth/", userData)
+      .post(
+        apiBaseUrl +
+          (apiPort !== 80 ? ":" + apiPort : "") +
+          "/api/api-token-auth/",
+        userData
+      )
       .then((response) => {
         // Set the authentication token in the context
         setToken(response.data.token);

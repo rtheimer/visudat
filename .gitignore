@@ -30,3 +30,4 @@ frontend/.idea/
 # Common
 .DS_Store
 Thumbs.db
+backend/db.sqlite3.bak

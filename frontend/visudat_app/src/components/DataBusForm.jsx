@@ -3,6 +3,7 @@ import * as Form from "@radix-ui/react-form";
 import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "./Context";
+import { apiBaseUrl, apiPort } from "./VisudatConfig";
 
 const DataBusForm = ({ setTableData, formData, setFormData }) => {
   //const csrftoken = getCookie("csrftoken");
@@ -30,7 +31,7 @@ const DataBusForm = ({ setTableData, formData, setFormData }) => {
   // fetching data on mount
   useEffect(() => {
     axios
-      .get("http://192.168.1.107:8000/plants/", {
+      .get("http://192.168.1.107:8000/api/plants/", {
         params: {
           name: "*",
         },
@@ -44,7 +45,7 @@ const DataBusForm = ({ setTableData, formData, setFormData }) => {
         setPVPlants(plant);
       }, []);
 
-    axios.get("http://192.168.1.107:8000/logger/").then((response) => {
+    axios.get("http://192.168.1.107:8000/api/logger/").then((response) => {
       const datalogger = response.data.map((obj) => [
         obj.id,
         obj.datalogger_serial,
@@ -69,13 +70,16 @@ const DataBusForm = ({ setTableData, formData, setFormData }) => {
     e.preventDefault();
 
     axios
-      .get("http://192.168.1.107:8000/databuses/", {
-        params: {
-          data_bus_name: data.data_bus_name,
-          plant_id: data.plant,
-          datalogger: data.data_logger,
-        },
-      })
+      .get(
+        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/databuses/",
+        {
+          params: {
+            data_bus_name: data.data_bus_name,
+            plant_id: data.plant,
+            datalogger: data.data_logger,
+          },
+        }
+      )
       .then((response) => {
         console.log(response.data);
         setTableData(response.data);
@@ -83,27 +87,43 @@ const DataBusForm = ({ setTableData, formData, setFormData }) => {
   };
   const handlePost = () => {
     axios
-      .post("http://192.168.1.107:8000/databuses/", {
-        id: data.pk,
-        data_bus_name: data.data_bus_name,
-        plant_id: data.plant,
-        datalogger: data.data_logger,
-      })
+      .post(
+        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/databuses/",
+        {
+          id: data.pk,
+          data_bus_name: data.data_bus_name,
+          plant_id: data.plant,
+          datalogger: data.data_logger,
+        }
+      )
       .then((response) => {
         setTableData([response.data]);
         setFormData([""]);
       });
   };
   const handlePut = (e) => {
-    axios.put(`http://192.168.1.107:8000/${data.pk}/databuses/`, {
-      data_bus_name: data.data_bus_name,
-      plant_id: data.plant,
-      datalogger: data.data_logger,
-    });
+    axios.put(
+      apiBaseUrl +
+        (apiPort !== 80 ? ":" + apiPort : "") +
+        "/api/" +
+        data.pk +
+        "/databuses/",
+      {
+        data_bus_name: data.data_bus_name,
+        plant_id: data.plant,
+        datalogger: data.data_logger,
+      }
+    );
   };
   const handleDelete = (e) => {
     axios
-      .delete(`http://192.168.1.107:8000/${data.pk}/databuses/`)
+      .delete(
+        apiBaseUrl +
+          (apiPort !== 80 ? ":" + apiPort : "") +
+          "/api/" +
+          data.pk +
+          "/databuses/"
+      )
       .then((response) => {
         setFormData([""]);
         setTableData([]);

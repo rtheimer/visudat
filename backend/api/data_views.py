@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from .models import Datalogger, DataBuses, Inverter
 
 
-data_path = "api/pd_data/powerdog/upload/"
+data_path = "/home/theimer/dev/Visudat/api/pd_data/powerdog/upload/"
 
 
 # TODO OOP

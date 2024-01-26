@@ -3,6 +3,7 @@ import * as Form from "@radix-ui/react-form";
 import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "./Context";
+import { apiBaseUrl, apiPort } from "./VisudatConfig";
 
 // Both const App = () => and function App() are valid ways
 // to declare a functional component in React.
@@ -53,7 +54,7 @@ const UserForm = ({ setTableData, formData, setFormData }) => {
     e.preventDefault();
 
     axios
-      .get("http://192.168.1.107:8000/users/", {
+      .get(apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/users/", {
         params: {
           username: data.username,
         },
