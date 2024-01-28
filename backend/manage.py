@@ -2,9 +2,12 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from visudat.env_handler import env_loads
 
 
 def main():
+    # load enviroment variables
+    env_loads(".env")
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'visudat.settings')
     try:
