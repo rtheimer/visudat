@@ -20,6 +20,7 @@ from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.request import Request
+from django.conf import settings
 
 # Constants for HTTP methods and their corresponding actions
 # GET    => READ
@@ -44,7 +45,7 @@ def read_csv_to_json(_):
     """
     print(os.getcwd())
     # Read CSV file into pandas DataFrame
-    datahandler = PowerDog("api/pd_data/powerdog/", "PD809-00051")
+    datahandler = PowerDog(settings.UPLOAD_DIRECTORY, "PD809-00051")
     year = datahandler.dataframe_year("B8", "A2", "S2")
 
     # Convert DataFrame to JSON
@@ -383,7 +384,7 @@ class DataLoggers(APIView):
         # get the buses_configured
         # check if there is the config
         datalogger_config = PowerDog(
-            "api/pd_data/powerdog/upload/", data["datalogger_serial"]
+            settings.UPLOAD_DIRECTORY, data["datalogger_serial"]
         )
 
         try:
@@ -449,7 +450,6 @@ class DataLoggerBuses(APIView):
 
     def post(self, request):
         # TODO: Implement handling when 'id' is not provided in the request data
-        
 
         # Extract necessary data from the incoming HTTP request
         data = request.data
@@ -488,7 +488,7 @@ class DataLoggerBuses(APIView):
         # Now we have the datalogger Serial, the bus number, and the bus LastAddress
 
         # Fetch all the inverter configurations for the corresponding datalogger Serial as a DataFrame
-        datalogger_config = PowerDog("api/pd_data/powerdog/upload/", serial)
+        datalogger_config = PowerDog(settings.UPLOAD_DIRECTORY, serial)
         df_inverter_configs = datalogger_config.filter_conf()[2]
 
         # Set the 'Parameter' column as the index and convert the DataFrame to a dictionary
@@ -522,14 +522,11 @@ class DataLoggerBuses(APIView):
                 "inverter_configured": "",
             }
             for key, value in inverters.items():
-                if key.startswith(
-                    f"Inverter_B{bus_number}_A{address + 1}_"
-                ):
+                if key.startswith(f"Inverter_B{bus_number}_A{address + 1}_"):
                     inverter_config[key] = value
                     if key == f"Inverter_B{bus_number}_A{address + 1}_Strings":
                         inverter["inverter_strings"] = value
             inverter["inverter_configured"] = inverter_config
-
 
             # Create an instance of the 'InverterSerializer' with the provided data
             serializer_inverter = InverterSerializer(data=inverter)
@@ -553,7 +550,6 @@ class DataLoggerBuses(APIView):
 
             # Return a response containing the serialized data
             return Response(serializer.data)
-
 
     def put(self, request, pk):
         data = request.data

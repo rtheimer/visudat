@@ -6,9 +6,10 @@ from rest_framework import permissions, status, authentication, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Datalogger, DataBuses, Inverter
+from django.conf import settings
 
 
-data_path = "/home/theimer/dev/Visudat/api/pd_data/powerdog/upload/"
+data_path = settings.UPLOAD_DIRECTORY
 
 
 # TODO OOP
