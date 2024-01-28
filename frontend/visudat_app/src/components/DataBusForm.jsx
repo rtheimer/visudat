@@ -31,11 +31,14 @@ const DataBusForm = ({ setTableData, formData, setFormData }) => {
   // fetching data on mount
   useEffect(() => {
     axios
-      .get("http://192.168.1.107:8000/api/plants/", {
-        params: {
-          name: "*",
-        },
-      })
+      .get(
+        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/plants/",
+        {
+          params: {
+            name: "*",
+          },
+        }
+      )
       .then((response) => {
         const plant = response.data.map((obj) => [
           obj.id,
@@ -45,15 +48,17 @@ const DataBusForm = ({ setTableData, formData, setFormData }) => {
         setPVPlants(plant);
       }, []);
 
-    axios.get("http://192.168.1.107:8000/api/logger/").then((response) => {
-      const datalogger = response.data.map((obj) => [
-        obj.id,
-        obj.datalogger_serial,
-        obj.plants,
-      ]);
+    axios
+      .get(apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/logger/")
+      .then((response) => {
+        const datalogger = response.data.map((obj) => [
+          obj.id,
+          obj.datalogger_serial,
+          obj.plants,
+        ]);
 
-      setPvDataLoggers(datalogger);
-    });
+        setPvDataLoggers(datalogger);
+      });
   }, []);
 
   console.log("----->", pvDataLoggers);
