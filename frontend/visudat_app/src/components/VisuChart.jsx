@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { apiBaseUrl, apiPort } from "./VisudatConfig";
+import { apiBaseUrl, apiPort, apiProtocol } from "./VisudatConfig";
 import {
   Chart as ChartJS,
   BarElement,
@@ -51,7 +51,9 @@ const VisuChart = (props) => {
     }
     axios
       .get(
-        apiBaseUrl +
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
           (apiPort !== 80 ? ":" + apiPort : "") +
           "/api/" +
           p[1] +

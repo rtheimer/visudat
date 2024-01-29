@@ -11,7 +11,7 @@ import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "./Context";
 import ErrorMessage from "./ErrorMessage";
-import { apiBaseUrl, apiPort } from "./VisudatConfig";
+import { apiBaseUrl, apiPort, apiProtocol } from "./VisudatConfig";
 
 // Both const App = () => and function App() are valid ways
 // to declare a functional component in React.
@@ -46,7 +46,11 @@ const DataloggerForm = ({ setTableData, formData, setFormData }) => {
     setSelectedPvPlants([]);
     axios
       .get(
-        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/plants/",
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
+          (apiPort !== 80 ? ":" + apiPort : "") +
+          "/api/plants/",
         {
           params: {
             name: "*",
@@ -86,7 +90,11 @@ const DataloggerForm = ({ setTableData, formData, setFormData }) => {
     e.preventDefault();
     axios
       .post(
-        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/logger/",
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
+          (apiPort !== 80 ? ":" + apiPort : "") +
+          "/api/logger/",
         {
           datalogger_serial: data.datalogger_serial,
           plants: selectedPvPlants,
@@ -106,7 +114,9 @@ const DataloggerForm = ({ setTableData, formData, setFormData }) => {
   const handlePut = (e) => {
     axios
       .put(
-        apiBaseUrl +
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
           (apiPort !== 80 ? ":" + apiPort : "") +
           "/api/" +
           data.pk +
@@ -125,7 +135,9 @@ const DataloggerForm = ({ setTableData, formData, setFormData }) => {
   const handleDelete = (e) => {
     axios
       .delete(
-        apiBaseUrl +
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
           (apiPort !== 80 ? ":" + apiPort : "") +
           "/api/" +
           data.pk +
@@ -143,7 +155,11 @@ const DataloggerForm = ({ setTableData, formData, setFormData }) => {
 
     axios
       .get(
-        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/logger/",
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
+          (apiPort !== 80 ? ":" + apiPort : "") +
+          "/api/logger/",
         {
           params: {
             datalogger_serial: data.datalogger_serial,

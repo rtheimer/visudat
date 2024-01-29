@@ -4,7 +4,7 @@ import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "./Context";
 import ErrorMessage from "./ErrorMessage";
-import { apiBaseUrl, apiPort } from "./VisudatConfig";
+import { apiBaseUrl, apiPort, apiProtocol } from "./VisudatConfig";
 
 // OwnerForm component represents a form for searching and saving owner information.
 const OwnerForm = ({ setTableData, formData, setFormData }) => {
@@ -58,7 +58,11 @@ const OwnerForm = ({ setTableData, formData, setFormData }) => {
     // Make an axios GET request to retrieve owner data based on the provided name
     axios
       .get(
-        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/owners/",
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
+          (apiPort !== 80 ? ":" + apiPort : "") +
+          "/api/owners/",
         {
           params: {
             company_name: data.company,
@@ -85,7 +89,11 @@ const OwnerForm = ({ setTableData, formData, setFormData }) => {
     console.log("HI", data);
     axios
       .post(
-        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/owners/",
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
+          (apiPort !== 80 ? ":" + apiPort : "") +
+          "/api/owners/",
         {
           company_name: data.company,
           full_name: data.name,
@@ -111,7 +119,9 @@ const OwnerForm = ({ setTableData, formData, setFormData }) => {
   const handleDelete = (e) => {
     axios
       .delete(
-        apiBaseUrl +
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
           (apiPort !== 80 ? ":" + apiPort : "") +
           "/api/" +
           data.pk +
@@ -131,7 +141,9 @@ const OwnerForm = ({ setTableData, formData, setFormData }) => {
   const handlePut = (e) => {
     axios
       .put(
-        apiBaseUrl +
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
           (apiPort !== 80 ? ":" + apiPort : "") +
           "/api/" +
           data.pk +

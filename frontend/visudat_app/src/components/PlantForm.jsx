@@ -11,7 +11,7 @@ import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "./Context";
 import ErrorMessage from "./ErrorMessage";
-import { apiBaseUrl, apiPort } from "./VisudatConfig";
+import { apiBaseUrl, apiPort, apiProtocol } from "./VisudatConfig";
 
 // Both const App = () => and function App() are valid ways
 // to declare a functional component in React.
@@ -62,7 +62,11 @@ const PlantForm = ({ setTableData, formData, setFormData }) => {
   useEffect(() => {
     axios
       .get(
-        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/owners/",
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
+          (apiPort !== 80 ? ":" + apiPort : "") +
+          "/api/owners/",
         {
           params: {
             name: "",
@@ -113,7 +117,11 @@ const PlantForm = ({ setTableData, formData, setFormData }) => {
     e.preventDefault();
     axios
       .post(
-        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/plants/",
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
+          (apiPort !== 80 ? ":" + apiPort : "") +
+          "/api/plants/",
         {
           plant_name: data.plant_name,
           plant_location: data.plant_location,
@@ -122,13 +130,17 @@ const PlantForm = ({ setTableData, formData, setFormData }) => {
       )
       .then((response) => {
         console.log(response.data);
+        setTableData([response.data]);
+        setFormData([null, "", "", ""]);
       })
       .catch((response) => console.log(response.data));
   };
   const handleDelete = (e) => {
     axios
       .delete(
-        apiBaseUrl +
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
           (apiPort !== 80 ? ":" + apiPort : "") +
           "/api/" +
           data.pk +
@@ -142,7 +154,9 @@ const PlantForm = ({ setTableData, formData, setFormData }) => {
   const handlePut = (e) => {
     axios
       .put(
-        apiBaseUrl +
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
           (apiPort !== 80 ? ":" + apiPort : "") +
           "/api/" +
           data.pk +
@@ -165,7 +179,11 @@ const PlantForm = ({ setTableData, formData, setFormData }) => {
 
     axios
       .get(
-        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/plants/",
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
+          (apiPort !== 80 ? ":" + apiPort : "") +
+          "/api/plants/",
         {
           params: {
             plant_name: data.plant_name,

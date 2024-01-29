@@ -3,7 +3,7 @@ import * as Form from "@radix-ui/react-form";
 import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "./Context";
-import { apiBaseUrl, apiPort } from "./VisudatConfig";
+import { apiBaseUrl, apiPort, apiProtocol } from "./VisudatConfig";
 
 const DataBusForm = ({ setTableData, formData, setFormData }) => {
   //const csrftoken = getCookie("csrftoken");
@@ -32,7 +32,11 @@ const DataBusForm = ({ setTableData, formData, setFormData }) => {
   useEffect(() => {
     axios
       .get(
-        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/plants/",
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
+          (apiPort !== 80 ? ":" + apiPort : "") +
+          "/api/plants/",
         {
           params: {
             name: "*",
@@ -49,7 +53,13 @@ const DataBusForm = ({ setTableData, formData, setFormData }) => {
       }, []);
 
     axios
-      .get(apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/logger/")
+      .get(
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
+          (apiPort !== 80 ? ":" + apiPort : "") +
+          "/api/logger/"
+      )
       .then((response) => {
         const datalogger = response.data.map((obj) => [
           obj.id,
@@ -76,7 +86,11 @@ const DataBusForm = ({ setTableData, formData, setFormData }) => {
 
     axios
       .get(
-        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/databuses/",
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
+          (apiPort !== 80 ? ":" + apiPort : "") +
+          "/api/databuses/",
         {
           params: {
             data_bus_name: data.data_bus_name,
@@ -93,7 +107,11 @@ const DataBusForm = ({ setTableData, formData, setFormData }) => {
   const handlePost = () => {
     axios
       .post(
-        apiBaseUrl + (apiPort !== 80 ? ":" + apiPort : "") + "/api/databuses/",
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
+          (apiPort !== 80 ? ":" + apiPort : "") +
+          "/api/databuses/",
         {
           id: data.pk,
           data_bus_name: data.data_bus_name,
@@ -108,7 +126,9 @@ const DataBusForm = ({ setTableData, formData, setFormData }) => {
   };
   const handlePut = (e) => {
     axios.put(
-      apiBaseUrl +
+      apiProtocol +
+        "//" +
+        apiBaseUrl +
         (apiPort !== 80 ? ":" + apiPort : "") +
         "/api/" +
         data.pk +
@@ -123,7 +143,9 @@ const DataBusForm = ({ setTableData, formData, setFormData }) => {
   const handleDelete = (e) => {
     axios
       .delete(
-        apiBaseUrl +
+        apiProtocol +
+          "//" +
+          apiBaseUrl +
           (apiPort !== 80 ? ":" + apiPort : "") +
           "/api/" +
           data.pk +
