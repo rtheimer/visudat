@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+        <script src="{% static 'htmx.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'output.css' %}">
+    </head>
+
+    <body class="">
+        <header class="flex justify-between">
+            {% block header %} Visudat Enterprise {% endblock %}
+        </header>
+        {% block content %}{% endblock %}
+    </body>
+
+</html>
