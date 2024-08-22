@@ -1,10 +1,14 @@
-from django.shortcuts import render
-from django.views import View
+from django.views.generic.edit import FormView
+from .forms import VisudatAuthenticationForm
 
 
 # Create your views here.
 
 
-class Index(View):
-    def get(self, request):
-        return render(request, "landing/index.html")
+class Index(FormView):
+    template_name = "landing/index.html"
+    form_class = VisudatAuthenticationForm
+    success_url = ""
+
+    def form_valid(self, form):
+        return super().form_valid(form)

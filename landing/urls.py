@@ -1,6 +1,7 @@
 from django.urls import path
-from . import views
+from django.contrib.auth.views import LoginView
+from .views import Index
 
 urlpatterns = [
-    path("", views.Index.as_view()),
+    path("", Index.as_view(), name="index"),
 ]
