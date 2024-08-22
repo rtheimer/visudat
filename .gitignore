@@ -162,6 +162,7 @@ dist/
 build/
 tmp/
 .cache/
+static/output.css
 
 # IDE and editor directories
 .idea/
