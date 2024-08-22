@@ -5,5 +5,12 @@
 <div>PV DATA simplified</div>
 {% endblock %}
 {% block content %}
-<h1 class="text-blue-800">Landing Page</h1>
+<div class="flex flex-col w-full bg-red-200 h-full items-center justify-center">
+    <h1 class="text-blue-800">Portalanmeldung</h1>
+    <form class="bg-indigo-300" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-submit">Send message</button>
+    </form>
+</div>
 {% endblock %}
