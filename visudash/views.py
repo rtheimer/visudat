@@ -4,5 +4,5 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 
 
-def index(request):
-    return HttpResponse("VISUDAT")
+def dashboard(request):
+    return HttpResponse("VISUDAT Dashboard")

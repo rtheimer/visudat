@@ -8,7 +8,7 @@ from .forms import VisudatAuthenticationForm
 class Index(FormView):
     template_name = "landing/index.html"
     form_class = VisudatAuthenticationForm
-    success_url = ""
+    success_url = "dash"
 
     def form_valid(self, form):
         return super().form_valid(form)
