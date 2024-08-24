@@ -1,4 +1,4 @@
-from django.urls import path, include
-from .views import dashboard
+from django.urls import path
+from .views import DashboardView
 
-urlpatterns = [path("", dashboard)]
+urlpatterns = [path("", DashboardView.as_view(), name="dashboard")]
