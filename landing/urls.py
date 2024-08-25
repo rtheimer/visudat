@@ -1,7 +1,8 @@
 from django.urls import path
-from django.contrib.auth.views import LoginView
-from .views import Index
+from django.contrib.auth.views import LogoutView
+from .views import LoginView
 
 urlpatterns = [
-    path("", Index.as_view(), name="index"),
+    path("", LoginView.as_view(), name="login"),
+    path("logout/", LogoutView.as_view(), name="logout"),
 ]
