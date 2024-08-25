@@ -1,8 +1,12 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
 # Owner Table
 class Owner(models.Model):
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name="owner"
+    )  # Ensure a unique relation to the User
     name = models.CharField(max_length=70)
     street = models.CharField(max_length=70)
     zip = models.IntegerField()
