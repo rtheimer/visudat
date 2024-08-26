@@ -1,17 +1,17 @@
 from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 
 
 # Owner Table
 class Owner(models.Model):
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name="owner"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="owner"
     )  # Ensure a unique relation to the User
     name = models.CharField(max_length=70)
     street = models.CharField(max_length=70)
     zip = models.IntegerField()
     city = models.CharField(max_length=70)
-    email = models.EmailField(blank=True)
     phone = models.CharField(max_length=70)
 
     contact_full_name = models.CharField(max_length=70, blank=True)
