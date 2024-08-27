@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Register</h1>
+{% if messages %}
+<div>
+    {% for message in messages %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn-submit">submit</button>
+</form>
+{% endblock %}
